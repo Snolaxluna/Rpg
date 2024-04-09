@@ -23,7 +23,7 @@ public class PlayerService {
         return repository.findAll(paginacao).map(p -> modelMapper.map(p, PlayerDto.class));
     }
 
-    public PlayerDto obterporId(Long id) {
+    public PlayerDto obterPorId(Long id) {
         Player player = repository.findById(id).orElseThrow(EntityNotFoundException::new);
         return modelMapper.map(player, PlayerDto.class);
     }
