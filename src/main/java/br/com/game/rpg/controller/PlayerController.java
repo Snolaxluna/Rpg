@@ -37,7 +37,7 @@ public class PlayerController {
     public ResponseEntity<PlayerDto> cadastrar(@RequestBody @Valid PlayerDto dto,
                                                UriComponentsBuilder uriBuilder){
         PlayerDto playerDto = service.criarPlayer(dto);
-        URI endereco = uriBuilder.path("/players/{id}").buildAndExpand(playerDto.id()).toUri();
+        URI endereco = uriBuilder.path("/players/{id}").buildAndExpand(playerDto.getId()).toUri();
 
         return ResponseEntity.created(endereco).body(playerDto);
     }
