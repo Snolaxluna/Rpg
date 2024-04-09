@@ -42,7 +42,7 @@ public class PlayerController {
         return ResponseEntity.created(endereco).body(playerDto);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     public ResponseEntity<PlayerDto> atualizar(@PathVariable @NotNull Long id,
                                                @RequestBody @Valid PlayerDto dto){
         PlayerDto atualizado = service.atualizarPlayer(id, dto);
