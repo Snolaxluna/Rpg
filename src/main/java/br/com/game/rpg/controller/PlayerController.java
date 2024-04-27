@@ -27,15 +27,14 @@ public class PlayerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PlayerDto> detalhar(@PathVariable @NotNull Long id){
+    public ResponseEntity<PlayerDto> detalhar(@PathVariable @NotNull Long id) {
         PlayerDto dto = service.obterPorId(id);
 
         return ResponseEntity.ok(dto);
     }
 
     @PostMapping
-    public ResponseEntity<PlayerDto> cadastrar(@RequestBody @Valid PlayerDto dto,
-                                               UriComponentsBuilder uriBuilder){
+    public ResponseEntity<PlayerDto> cadastrar(@RequestBody @Valid PlayerDto dto, UriComponentsBuilder uriBuilder) {
         PlayerDto playerDto = service.criarPlayer(dto);
         URI endereco = uriBuilder.path("/players/{id}").buildAndExpand(playerDto.getId()).toUri();
 
@@ -43,15 +42,23 @@ public class PlayerController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PlayerDto> atualizar(@PathVariable @NotNull Long id,
-                                               @RequestBody @Valid PlayerDto dto){
+    public ResponseEntity<PlayerDto> atualizar(@PathVariable @NotNull Long id, @RequestBody @Valid PlayerDto dto) {
         PlayerDto atualizado = service.atualizarPlayer(id, dto);
         return ResponseEntity.ok(atualizado);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<PlayerDto> remover(@PathVariable @NotNull Long id){
+    public ResponseEntity<PlayerDto> remover(@PathVariable @NotNull Long id) {
         service.excluirPlayer(id);
         return ResponseEntity.noContent().build();
+    }
+
+
+    @GetMapping("/rolagem/{id}")
+    public ResponseEntity<PlayerDto> mudarDado(@PathVariable @NotNull Long id) {
+        PlayerDto dto = service.obterPorId(id);
+        dto.mudarDado();
+
+        return ResponseEntity.ok(dto);
     }
 }
